@@ -58,11 +58,11 @@ class Cachorro { // ## define o objeto - objeto cachoro ## //
     }
     
     public Cachorro(String name, String race, String color, float size, int birth){ // ## construtor ## //
-        this.name = name;
-        this.race = race;
+        this.name  = name;
+        this.race  = race;
         this.color = color;
-        this.size = size;
-        this.age = 2023 - birth;
+        this.size  = size;
+        this.age   = 2023 - birth;
     }
     
     public void description(){ // ## esse é o método ## //
