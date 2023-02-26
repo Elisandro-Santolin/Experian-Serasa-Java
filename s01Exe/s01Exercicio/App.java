@@ -49,7 +49,6 @@ class Cachorro { // ## define o objeto - objeto cachoro ## //
             " a idade do cachorro é "+age+" hoje tem o peso de "+weight+"."+
             " Ele está vacinado? "+hasVaccine+" é do sexo "+sex+".");
     }
-
     public void imcc(){
 
         float imcc = (weight / (size * size));
