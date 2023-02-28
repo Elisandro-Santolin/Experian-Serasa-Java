@@ -32,10 +32,10 @@ class Cachorro { // ## define o objeto - objeto cachoro ## //
     private String color;
     private int age;
     private String name;
-    private char sex;
-    private float weight;
-    private float thirstMeter;
-    private boolean hasVaccine;
+    // private char sex;
+    // private float weight;
+    // private float thirstMeter;
+    // private boolean hasVaccine;
 
 
     /* 
