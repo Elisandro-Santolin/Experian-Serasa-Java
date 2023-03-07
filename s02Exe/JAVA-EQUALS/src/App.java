@@ -69,11 +69,11 @@ class Person{
     public int hashCode() { // ## todo objeto tem um hascode, retorna um numero inteiro - exclusivo de cada objeto (termina a igualdade) ## //
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((name == null)      ? 0 : name.hashCode());           // ## EXPRESSÃO LAMBDA ## //
+        result = prime * result + ((name == null)      ? 0 : name.hashCode());       // ## EXPRESSÃO LAMBDA ## //
         result = prime * result + ((lastName == null)  ? 0 : lastName.hashCode());   // ## EXPRESSÃO LAMBDA ## //
         result = prime * result + ((eyeColor == null)  ? 0 : eyeColor.hashCode());   // ## EXPRESSÃO LAMBDA ## //
-        result = prime * result + ((hariColor == null) ? 0 : hariColor.hashCode()); // ## EXPRESSÃO LAMBDA ## //
-        result = prime * result + ((skinColor == null) ? 0 : skinColor.hashCode()); // ## EXPRESSÃO LAMBDA ## //
+        result = prime * result + ((hariColor == null) ? 0 : hariColor.hashCode());  // ## EXPRESSÃO LAMBDA ## //
+        result = prime * result + ((skinColor == null) ? 0 : skinColor.hashCode());  // ## EXPRESSÃO LAMBDA ## //
         result = prime * result + gender;
         result = prime * result + Float.floatToIntBits(weight);
         result = prime * result + Float.floatToIntBits(height);

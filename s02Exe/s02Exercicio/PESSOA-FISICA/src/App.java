@@ -1,18 +1,19 @@
 public class App {
     public static void main(String[] args) throws Exception {
-        System.out.println("Hello, World!");
-
-
-
+        PessoaFisica jhon = new PessoaFisica("Jhon", "Travolta", 'M', 56,1111111159, "Sim", 45678); // ## MÉTODO ## // // ## antes de gerar os equals e hashCodes criar o método - criado usando command . ## //
+        System.out.println("################## INICIO DA EXECUÇÃO  ################## ");
+        System.out.println(jhon.toString());
+        System.out.println("##################  FINAL DA EXECUÇÃO  ################## ");
+    }
+}
     class PessoaFisica {
-        private String name;
-        private String lastname;
-        private String gender;
-        private int age;
-        private int cpf;
-        private String married;
-        private int cep;
-
+        private String  name;
+        private String  lastname;
+        private char    gender;
+        private int     age;
+        private int     cpf;
+        private String  married;
+        private int     cep;
 
 
         public String getName() {
@@ -30,11 +31,11 @@ public class App {
             this.lastname = lastname;
         }
 
-        public String getGender() {
+        public char getGender() {
             return gender;
         }
 
-        public void setGender(String gender) {
+        public void setGender(char gender) {
             this.gender = gender;
         }
 
@@ -46,19 +47,12 @@ public class App {
             this.age = age;
         }
 
-        public int getcpf() {
+        public int getCpf() {
             return cpf;
-            if(cpf == 8){
-                return cpf;
-            }try {
-                
-            } catch (Exception e) {
-                // TODO: handle exception
-            }
         }
 
-        public void setcpf(int cpf) {
-            cpf = cpf;
+        public void setCpf(int cpf) {
+            this.cpf = cpf;
         }
 
         public String getMarried() {
@@ -69,35 +63,85 @@ public class App {
             this.married = married;
         }
 
-        public int getcep() {
+        public int getCep() {
             return cep;
         }
+        protected int validaCep;
 
-        public void setcep(int cep) {
-            cep = cep;
+        public void validaCep(int cep){
+            if(cep <= 0){ // ## criação da expection ## //
+                IllegalArgumentException error = new IllegalArgumentException("CEP Inválido. Verificar!");
+                throw error;
+            }
         }
 
-        public PessoaFisica(String name, String lastname, String gender, int age, int cpf, String married, int cep) { // ## construtor ## //
-            this.name = name;
-            this.lastname = lastname;
-            this.gender = gender;
-            this.age = age;
-            this.cpf = cpf;
-            this.married = married;
+        public void setCep(int cep) {
             this.cep = cep;
-        }  
+        }
+
+        public PessoaFisica(String name, String lastname, char gender, int age, int cpf, String married, int cep) { // ## construtor ## //
+            this.name =     name;
+            this.lastname = lastname;
+            this.gender =   gender;
+            this.age =      age;
+            this.cpf =      cpf;
+            this.married =  married;
+            this.cep =      cep;
+        }
+
+        @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = 1;
+            result = prime * result + ((name == null) ? 0 : name.hashCode());
+            result = prime * result + ((lastname == null) ? 0 : lastname.hashCode());
+            result = prime * result + gender;
+            result = prime * result + age;
+            result = prime * result + cpf;
+            result = prime * result + ((married == null) ? 0 : married.hashCode());
+            result = prime * result + cep;
+            return result;
+        }
 
         @Override
         public boolean equals(Object obj) {
-            // TODO Auto-generated method stub
-            return super.equals(obj);
+            if (this == obj)
+                return true;
+            if (obj == null)
+                return false;
+            if (getClass() != obj.getClass())
+                return false;
+            PessoaFisica other = (PessoaFisica) obj;
+            if (name == null) {
+                if (other.name != null)
+                    return false;
+            } else if (!name.equals(other.name))
+                return false;
+            if (lastname == null) {
+                if (other.lastname != null)
+                    return false;
+            } else if (!lastname.equals(other.lastname))
+                return false;
+            if (gender != other.gender)
+                return false;
+            if (age != other.age)
+                return false;
+            if (cpf != other.cpf)
+                return false;
+            if (married == null) {
+                if (other.married != null)
+                    return false;
+            } else if (!married.equals(other.married))
+                return false;
+            if (cep != other.cep)
+                return false;
+            return true;
         }
+
         @Override
-        public int hashCode() {
-            // TODO Auto-generated method stub
-            return super.hashCode();
-        }
-    }
-    
-    }
-}
+        public String toString() { // ## método .toString ## //
+            return "PessoaFisica [name = " + name + ", lastname = " + lastname + ", gender = " + gender + ", age = " + age
+                    + ", cpf = " + cpf + ", married = " + married + ", cep = " + cep + "]";
+    }       
+}  
+
