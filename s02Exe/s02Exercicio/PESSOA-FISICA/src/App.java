@@ -1,19 +1,37 @@
 public class App {
     public static void main(String[] args) throws Exception {
-        PessoaFisica jhon = new PessoaFisica("Jhon", "Travolta", 'M', 56,1111111159, "Sim", 45678); // ## MÉTODO ## // // ## antes de gerar os equals e hashCodes criar o método - criado usando command . ## //
+        Person jhon = new Person("Jhon", "Travolta", 'M', 34, "123445556", "Sim", "12345213"); // ## MÉTODO ## // // ## antes de gerar os equals e hashCodes criar o método - criado usando command . ## //
         System.out.println("################## INICIO DA EXECUÇÃO  ################## ");
+        jhon.setCpf("11144477735");
         System.out.println(jhon.toString());
         System.out.println("##################  FINAL DA EXECUÇÃO  ################## ");
     }
 }
-    class PessoaFisica {
+       //     _ +-------------------------------------------+ _
+        //     /o)|              				             |(o\
+        //    / / |				    JAVA DOCS 	    	     | \ \
+        //   ( (_ |  _     							      _  | _) )
+        //  ((\ \)+-/o)-----------------------------------(o\-+(/ /))
+        //  (\\\ \_/ /                                     \ \_/ ///)
+        //   \      /                                       \      /
+        //    \____/                                         \____/
+        
+/**
+ * Uma classe que serve para representar uma pessoa.
+ * @param name é o nome da pessoa;
+ * @param lastname é o sobrenome da pessoa;
+ * @param cpf O cpf da pessoal, ele tem que ser validade com o método <a href="#{@link}}"> {@link Person#setCpf}
+ * @author Turma T3;
+ */
+
+    class Person {
         private String  name;
         private String  lastname;
         private char    gender;
         private int     age;
-        private int     cpf;
+        private String  cpf;
         private String  married;
-        private int     cep;
+        private String  cep;
 
 
         public String getName() {
@@ -47,12 +65,59 @@ public class App {
             this.age = age;
         }
 
-        public int getCpf() {
+        public String getCpf() {
             return cpf;
         }
 
-        public void setCpf(int cpf) {
-            this.cpf = cpf;
+        public void setCpf(String cpf) {
+
+        //     _ +-------------------------------------------+ _
+        //     /o)|              				             |(o\
+        //    / / |				  VALIDACAO CPF  	    	 | \ \
+        //   ( (_ |  _     							      _  | _) )
+        //  ((\ \)+-/o)-----------------------------------(o\-+(/ /))
+        //  (\\\ \_/ /                                     \ \_/ ///)
+        //   \      /                                       \      /
+        //    \____/                                         \____/
+        
+
+            String cpfChecker = cpf.substring(0, 9);
+            int multiplierNumber;
+            int resultTotal;
+
+            resultTotal = 0;
+            multiplierNumber = 10;
+            for (int i = 0; i < cpfChecker.length(); i++) {
+                int myDigit = Character.getNumericValue(cpfChecker.charAt(i)); // ## retorna a posicao do index ## //
+                resultTotal += myDigit * multiplierNumber;
+                multiplierNumber--;
+            }
+            if(resultTotal%11 < 2){ // ## se o resto de resultTotal for menos que 2 entao o digito add é 0 ## //
+                cpfChecker = cpfChecker + "0";
+                
+
+            }else { // ##  senao o digito adicionado é 11 menos o resto de resultTotal ## //
+                cpfChecker = cpfChecker + (11 - resultTotal%11);
+            }
+            resultTotal = 0;
+            multiplierNumber = 11;
+            for (int i = 0; i < cpfChecker.length(); i++) {
+                int myDigit = Character.getNumericValue(cpfChecker.charAt(i)); // ## retorna a posicao do index ## //
+                resultTotal += myDigit * multiplierNumber;
+                multiplierNumber--;
+            }
+            if(resultTotal%11 < 2){ // ## se o resto de resultTotal for menos que 2 entao o digito add é 0 ## //
+                cpfChecker = cpfChecker + "0";
+                
+
+            }else { // ##  senao o digito adicionado é 11 menos o resto de resultTotal ## //
+                cpfChecker = cpfChecker + (11 - resultTotal%11);
+            }
+            // ##  verifica se os cpfs(String) são iguais: ## //
+            if(!(cpf.equals(cpfChecker))){
+                throw new IllegalArgumentException("CPF Inválido");
+            }
+            this.cpf = cpf; 
         }
 
         public String getMarried() {
@@ -63,30 +128,44 @@ public class App {
             this.married = married;
         }
 
-        public int getCep() {
+        /**
+         * Retorna o cep da pessoa
+         * @return o cep da pessoa
+         */
+        public String getCep() {
             return cep;
         }
-        protected int validaCep;
 
-        public void validaCep(int cep){
-            if(cep <= 0){ // ## criação da expection ## //
-                IllegalArgumentException error = new IllegalArgumentException("CEP Inválido. Verificar!");
-                throw error;
+        public void setCep(String cep) {
+            if(cep == null){
+                throw new IllegalArgumentException("CEP Inválido: CEP não pode ser nulo");
             }
-        }
-
-        public void setCep(int cep) {
+            int cepSize = cep.length();
+            if(cepSize != 8){
+                    throw new IllegalArgumentException("CEP Inválido: CEP Incompleto"); // ## enviar o erro para o usuário. retorna o erro e para a aplicacao ## //
+                }  
+            for (int i = 0; i < cepSize; i++) {
+                char mychar = cep.charAt(i);
+                if(!(mychar >= 48 && mychar <= 57)){
+                    throw new IllegalArgumentException("CEP Inválido: CEP somente deve conter números");
+                }    
+            }
             this.cep = cep;
         }
 
-        public PessoaFisica(String name, String lastname, char gender, int age, int cpf, String married, int cep) { // ## construtor ## //
+        public Person(String name, String lastname, char gender, int age, String cpf, String married, String cep) { // ## construtor ## //
+            try {
             this.name =     name;
             this.lastname = lastname;
             this.gender =   gender;
             this.age =      age;
             this.cpf =      cpf;
             this.married =  married;
-            this.cep =      cep;
+            this.setCep(cep);
+                
+            } catch (Exception e) {
+                throw new IllegalArgumentException("Verifique as informações inseridas");
+            }
         }
 
         @Override
@@ -97,9 +176,9 @@ public class App {
             result = prime * result + ((lastname == null) ? 0 : lastname.hashCode());
             result = prime * result + gender;
             result = prime * result + age;
-            result = prime * result + cpf;
+            result = prime * result + ((cpf == null) ? 0 : cpf.hashCode());
             result = prime * result + ((married == null) ? 0 : married.hashCode());
-            result = prime * result + cep;
+            result = prime * result + ((cep == null) ? 0 : cep.hashCode());
             return result;
         }
 
@@ -111,7 +190,7 @@ public class App {
                 return false;
             if (getClass() != obj.getClass())
                 return false;
-            PessoaFisica other = (PessoaFisica) obj;
+            Person other = (Person) obj;
             if (name == null) {
                 if (other.name != null)
                     return false;
@@ -126,14 +205,20 @@ public class App {
                 return false;
             if (age != other.age)
                 return false;
-            if (cpf != other.cpf)
+            if (cpf == null) {
+                if (other.cpf != null)
+                    return false;
+            } else if (!cpf.equals(other.cpf))
                 return false;
             if (married == null) {
                 if (other.married != null)
                     return false;
             } else if (!married.equals(other.married))
                 return false;
-            if (cep != other.cep)
+            if (cep == null) {
+                if (other.cep != null)
+                    return false;
+            } else if (!cep.equals(other.cep))
                 return false;
             return true;
         }
