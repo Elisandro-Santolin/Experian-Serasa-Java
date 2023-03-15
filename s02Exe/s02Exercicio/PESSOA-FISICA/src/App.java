@@ -1,3 +1,5 @@
+import enumerators.StatesEnum;
+
 public class App {
     public static void main(String[] args) throws Exception {
         Person jhon = new Person("Jhon", "Travolta", 'M', 34, "123445556", "Sim", "12345213"); // ## MÉTODO ## // // ## antes de gerar os equals e hashCodes criar o método - criado usando command . ## //
@@ -32,6 +34,7 @@ public class App {
         private String  cpf;
         private String  married;
         private String  cep;
+        private StatesEnum birthState;
 
 
         public String getName() {

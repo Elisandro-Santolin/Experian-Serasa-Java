@@ -1,0 +1,6 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "/Users/elisandrosantolin/Desktop/source code_Java/s04Exe/s04Exe.jar"
+    ]
+}
