@@ -1,0 +1,59 @@
+                    +++++++++++++++++++++++++++++++++++++++++++++++
+                    +	Server [localhost]: localhost		  +
+                    +	Database [postgres]: postgres             +
+                    +	Port [5432]: 5432                         +
+                    +	Username [postgres]: postgres             +
+                    +	Password for user postgres:  ***********  +
+                    +++++++++++++++++++++++++++++++++++++++++++++++
+
+
+++++++++++++++++
++   commands   +
+++++++++++++++++
+
+
+-> \l - listagem de base de dados existentes 
+-> \r - limpa o buffer - Query buffer reset (cleared)
+-> para copiar - selecionar o código e apertar ENTER
+-> \! cls - limpa o terminal
+-> \c my_database - acessar o banco de dados criado 
+
+
+-> CREATE DATABASE my_database; - criar novo banco de dados
+	**mensagem de sucesso**    CREATE DATABASE
+
+-> DROP DATABASE my_database; - deletar um banco de dados
+    **mensagem de sucesso**     DROP DATABASE
+
+->  my_database=# CREATE TABLE my_table (
+	my_database(# ID INT primary key NOT NULL,
+	my_database(# NAME TEXT NOT NULL,
+	my_database(# AGE INT
+	my_database(# );
+	CREATE TABLE
+
+-> \d - verifica se criou a tabela corretamente dentro do banco de dados
+
+-> \e - abre um .txt com o feed do postgreeSQL (EDITÁVEL)
+
+-> \p - mostra o último comando executado
+
+-> \d my_table - demonstra os valores contidos na tabela, colunas e linhas com seus tipos.
+
+-> adicionar dados a tabela - INSERT INTO my_table VALUES (ID, 'NAME', AGE); - *respeitar a sequência para inserção de dados*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
