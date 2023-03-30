@@ -7,7 +7,7 @@ public class App {
 
         Scanner myScanner = new Scanner(System.in);
         
-        System.out.println("########## WELCOME MOTHERFUCKS ##########");
+        System.out.println("########## WELCOME ##########");
         System.out.println();
 
         while(myDatabase == null){
@@ -56,16 +56,17 @@ public class App {
                     break;
                 case 'u':
                 case 'U':
-                   System.out.println("Selected: U - Update");
-                   break;
+                    System.out.println("Selected: U - Update");
+                    myDatabase.updateOperation();
+                    break;
                 case 'd':
                 case 'D':
                     System.out.println("Selected: D - Delete");
                     myDatabase.deleteOperation();
                     break;
                 case '0':
-                     System.out.println("Selected: 0 - Exit");
-                     break;
+                    System.out.println("Selected: 0 - Exit");
+                    break;
                 default:
                     System.out.println("Selected: "+option+"- Invalid");
                     break;

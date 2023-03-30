@@ -1,12 +1,13 @@
 import java.sql.*;
 import java.util.Scanner;
 
-
 public class Database {
     private Scanner myScanner = new Scanner(System.in);    
     private Connection myConnection;
     private PreparedStatement insertStatement;
     private PreparedStatement selectStatement;
+    private PreparedStatement selectUserStament;
+    private PreparedStatement updateStatement;
     private PreparedStatement deleteStatement;
 
 
@@ -26,9 +27,11 @@ public class Database {
         myConnection = DriverManager.getConnection(url, adminUsername, adminPassword);
         
         
-        insertStatement = myConnection.prepareStatement("INSERT INT clients VALUES(?, ?, ?, ?, ?)");  // ## CONSTRUTOR ## //
-        selectStatement = myConnection.prepareStatement("SELECT * FROM clients");
-        deleteStatement = myConnection.prepareStatement("DELETE * FROM clients WHERE username= ?");
+        insertStatement   = myConnection.prepareStatement("INSERT INT clients VALUES(?, ?, ?, ?, ?)");  // ## CONSTRUTOR ## //
+        selectStatement   = myConnection.prepareStatement("SELECT * FROM clients");
+        selectUserStament = myConnection.prepareStatement("SELECT * FROM clients WHERE username = ?");
+        updateStatement   = myConnection.prepareStatement("UPDATE clients SET username = ?, fullname = ?, email = ?, phone = ?, age = ? WHERE username = ?");
+        deleteStatement   = myConnection.prepareStatement("DELETE * FROM clients WHERE username= ?");
     }
     public void insertOperation(){
         System.out.println("Enter cliente information");
@@ -69,13 +72,206 @@ public class Database {
                     tableResult.getString(2).trim(),
                     tableResult.getString(3).trim(),
                     tableResult.getString(4).trim(),
-                    tableResult.getInt(5));
+                    tableResult.getInt   (5));
 
                 System.out.println(oneClient.toString());
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public void updateOperation(){
+        System.out.println("Enter the username of the client to be updated: ");
+        Client updateClient = null;
+        String username = null;
+
+        // ## verifica se já existe o nome ## //
+        try {
+            username = myScanner.nextLine();
+            selectUserStament.setString(1, username);
+            ResultSet clientInfo = selectUserStament.executeQuery();
+
+            if(clientInfo.next()){
+                updateClient = new Client(
+                    clientInfo.getString(1).trim(),
+                    clientInfo.getString(2).trim(),
+                    clientInfo.getString(3).trim(),
+                    clientInfo.getString(4).trim(),
+                    clientInfo.getInt   (5));      
+                    
+                    System.out.println(updateClient.toString());
+            }else {
+                System.out.println("A client with the username "+username+" doesn't exists");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        Boolean continueOperation = false;
+
+        System.out.println();
+        System.err.println("Enter the new username: ");
+        System.out.println("Leave it blank for no alteration");
+        System.out.println("Actual username: "+updateClient.getUsername());
+
+        continueOperation = false;
+        while(!continueOperation == false){
+            try {
+                String newUsername = myScanner.nextLine();
+                if(newUsername != ""){
+                    updateClient.setUsername(newUsername);
+                    System.out.println("New username: "+updateClient.getUsername());
+                    continueOperation = true;
+                }else {
+                    System.out.println("No alteration, username: "+updateClient.getUsername());
+                    continueOperation = true;
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                System.out.println("Try to input the new username again: ");
+            }
+        }
+        
+        System.out.println();
+        System.err.println("Enter the new username: ");
+        System.out.println("Leave it blank for no alteration");
+        System.out.println("Actual username: "+updateClient.getUsername());
+
+        continueOperation = false;
+        while(!continueOperation == false){
+            try {
+                String newUsername = myScanner.nextLine();
+                if(newUsername != ""){
+                    updateClient.setUsername(newUsername);
+                    System.out.println("New username: "+updateClient.getUsername());
+                    continueOperation = true;
+                }else {
+                    System.out.println("No alteration, username: "+updateClient.getUsername());
+                    continueOperation = true;
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                System.out.println("Try to input the new username again: ");
+            }
+        }
+        
+        System.out.println();
+        System.err.println("Enter the new fullname: ");
+        System.out.println("Leave it blank for no alteration");
+        System.out.println("Actual fullname: "+updateClient.getFullname());
+
+        continueOperation = false;
+        while(!continueOperation == false){
+            try {
+                String newFullname = myScanner.nextLine();
+                if(newFullname != ""){
+                    updateClient.setFullname(newFullname);
+                    System.out.println("New fullname: "+updateClient.getFullname());
+                    continueOperation = true;
+                }else {
+                    System.out.println("No alteration, fullname: "+updateClient.getFullname());
+                    continueOperation = true;
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                System.out.println("Try to input the new fullname again: ");
+            }
+        }
+    
+        System.out.println();
+        System.err.println("Enter the email: ");
+        System.out.println("Leave it blank for no alteration");
+        System.out.println("Actual email: "+updateClient.getEmail());
+
+        continueOperation = false;
+        while(!continueOperation == false){
+            try {
+                String newEmail = myScanner.nextLine();
+                if(newEmail != ""){
+                    updateClient.setEmail(newEmail);
+                    System.out.println("New email: "+updateClient.getEmail());
+                    continueOperation = true;
+                }else {
+                    System.out.println("No alteration, email: "+updateClient.getEmail());
+                    continueOperation = true;
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                System.out.println("Try to input the new email again: ");
+            }
+        }
+            
+        System.out.println();
+        System.err.println("Enter the phone: ");
+        System.out.println("Leave it blank for no alteration");
+        System.out.println("Actual phone: "+updateClient.getPhone());
+
+        continueOperation = false;
+        while(!continueOperation == false){
+            try {
+                String newPhone = myScanner.nextLine();
+                if(newPhone != ""){
+                    updateClient.setPhone(newPhone);
+                    System.out.println("New phone: "+updateClient.getPhone());
+                    continueOperation = true;
+                }else {
+                    System.out.println("No alteration, phone: "+updateClient.getPhone());
+                    continueOperation = true;
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                System.out.println("Try to input the new phone again: ");
+            }
+        }
+
+        System.out.println();
+        System.err.println("Enter the age: ");
+        System.out.println("Leave it blank for no alteration");
+        System.out.println("Actual age: "+updateClient.getAge());
+
+        continueOperation = false;
+        while(!continueOperation == false){
+            try {
+                String newAge = myScanner.nextLine();
+                if(newAge != ""){
+                    updateClient.setAge(Integer.parseInt(newAge));
+                    System.out.println("New age: "+updateClient.getAge());
+                    continueOperation = true;
+                }else {
+                    System.out.println("No alteration, age: "+updateClient.getAge());
+                    continueOperation = true;
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                System.out.println("Try to input the new age again: ");
+            }
+        }
+        
+        System.out.println();
+        System.out.println("Update client: "+username+ "Y/N");
+        try {
+                    
+        String choice = myScanner.nextLine();
+        if(choice.equals("Y") || choice.equals("y")){
+            updateStatement.setString(1, updateClient.getUsername());
+            updateStatement.setString(2, updateClient.getFullname());
+            updateStatement.setString(3, updateClient.getEmail());
+            updateStatement.setString(4, updateClient.getPhone());
+            updateStatement.setInt(5, updateClient.getAge());
+//           updateStatement.setString(6, username());
+            int results = updateStatement.executeUpdate();
+
+            if(results == 1){
+                System.out.println("1 row updated");
+            }
+        }else {
+            System.out.println("Update Canceled");
+        }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 
     public void deleteOperation(){
@@ -91,9 +287,6 @@ public class Database {
 
         } catch (SQLException e) {
             System.out.println("Delete Error!");
-        }
-       
+        }    
     }
-
-
 }
