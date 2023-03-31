@@ -7,7 +7,7 @@ public class App {
 
         Scanner myScanner = new Scanner(System.in);
         
-        System.out.println("########## WELCOME ##########");
+        System.out.println("########## WELCOME TO DATABASE CRUD ##########");
         System.out.println();
 
         while(myDatabase == null){
@@ -16,7 +16,7 @@ public class App {
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
 
-                System.out.println("Try again loser? Y/N");
+                System.out.println("Try again? Y/N");
                 char tryAgain = myScanner.nextLine().charAt(0);
 
                 if(tryAgain == 'n' || tryAgain == 'N'){
@@ -24,6 +24,7 @@ public class App {
                 }
             }
         }
+
         // ## connection ## //
         System.out.println("Connected");
         System.out.println();

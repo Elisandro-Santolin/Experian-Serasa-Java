@@ -11,7 +11,7 @@ public class Client {
     private static final Pattern usernamePattern =  Pattern.compile("[a-z 0-9]{3,20}");
     private static final Pattern emailPattern = Pattern.compile("[a-z] \\-\\ @  ");
     private static final Pattern phonePattern = Pattern.compile("[0-9]{7,15}");
-    //FALTA FAZER O AGEPARTTERN ##
+//  private static final Pattern agePattern = Pattern.compile("[0-9]");
 
     public Client(String username, String fullname, String email, String phone, int age) {
         this.username = username;
