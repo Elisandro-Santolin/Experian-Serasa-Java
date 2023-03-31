@@ -9,9 +9,9 @@ public class Client {
     private int age;
     
     private static final Pattern usernamePattern =  Pattern.compile("[a-z 0-9]{3,20}");
-    private static final Pattern emailPattern = Pattern.compile("[a-z]");
+    private static final Pattern emailPattern = Pattern.compile("[a-z] \\-\\ @  ");
     private static final Pattern phonePattern = Pattern.compile("[0-9]{7,15}");
-
+    //FALTA FAZER O AGEPARTTERN ##
 
     public Client(String username, String fullname, String email, String phone, int age) {
         this.username = username;
@@ -110,7 +110,7 @@ public class Client {
     }
 
     public void setPhone(String phone) throws Exception {
-        // ## passa o numero de telefone pelo regex phonePattern
+        // ## passa o numero de telefone pelo regexphonePattern
         Matcher phoneMatcher = phonePattern.matcher(phone);
         if(phoneMatcher.matches()){
             this.phone = phone;

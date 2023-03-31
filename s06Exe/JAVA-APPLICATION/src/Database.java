@@ -9,6 +9,8 @@ public class Database {
     private PreparedStatement selectUserStament;
     private PreparedStatement updateStatement;
     private PreparedStatement deleteStatement;
+    private PreparedStatement countStatement;
+    private PreparedStatement searchByNameStatement;
 
 
     public Database() throws SQLException {
@@ -27,11 +29,13 @@ public class Database {
         myConnection = DriverManager.getConnection(url, adminUsername, adminPassword);
         
         
-        insertStatement   = myConnection.prepareStatement("INSERT INT clients VALUES(?, ?, ?, ?, ?)");  // ## CONSTRUTOR ## //
-        selectStatement   = myConnection.prepareStatement("SELECT * FROM clients");
-        selectUserStament = myConnection.prepareStatement("SELECT * FROM clients WHERE username = ?");
-        updateStatement   = myConnection.prepareStatement("UPDATE clients SET username = ?, fullname = ?, email = ?, phone = ?, age = ? WHERE username = ?");
-        deleteStatement   = myConnection.prepareStatement("DELETE * FROM clients WHERE username= ?");
+        insertStatement       = myConnection.prepareStatement("INSERT INT clients VALUES(?, ?, ?, ?, ?)");  // ## CONSTRUTOR ## //
+        selectStatement       = myConnection.prepareStatement("SELECT * FROM clients LIMIT 5 OFFSET ?");
+        selectUserStament     = myConnection.prepareStatement("SELECT * FROM clients WHERE username = ?");
+        updateStatement       = myConnection.prepareStatement("UPDATE clients SET username = ?, fullname = ?, email = ?, phone = ?, age = ? WHERE username = ?");
+        deleteStatement       = myConnection.prepareStatement("DELETE * FROM clients WHERE username= ?");
+        countStatement        = myConnection.prepareStatement("SELECT count(*) FROM clients");
+        searchByNameStatement = myConnection.prepareStatement("SELECT * FROM clients WHERE LOWER(fullname) LIKE LOWER (?)");
     }
     public void insertOperation(){
         System.out.println("Enter cliente information");
@@ -60,32 +64,38 @@ public class Database {
     }
 
     public void selectOperation(){
-        System.out.println("List of clients: ");
+        System.out.println("List of clients:");  
+
+        int totalOfClients = totalOfClients();
+        System.out.println("Total of clients in database: "+totalOfClients);
+
+        int numberOfPages = totalOfPages(totalOfClients);
+
+        for (int page = 0;  page < numberOfPages; page++) {
 
         try {
-            ResultSet tableResult = selectStatement.executeQuery();
-
-            while(tableResult.next()){
-               // System.out.println(tableResultSet.getString(1));
-                Client oneClient = new Client(
-                    tableResult.getString(1).trim(),
-                    tableResult.getString(2).trim(),
-                    tableResult.getString(3).trim(),
-                    tableResult.getString(4).trim(),
-                    tableResult.getInt   (5));
-
-                System.out.println(oneClient.toString());
-            }
+                selectStatement.setInt(1, 5 * page);
+                ResultSet tableResult = selectStatement.executeQuery();
+                printTableRows(tableResult);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+        System.out.println("Page "+(page + 1)+"/"+numberOfPages);
+        if(page +1 != numberOfPages){
+            System.out.println("Press Enter fro the next Page");
+            System.out.println();
+            myScanner.nextLine();
+        }
     }
 
+        }
+
+      
     public void updateOperation(){
         System.out.println("Enter the username of the client to be updated: ");
         Client updateClient = null;
         String username = null;
-
+       
         // ## verifica se já existe o nome ## //
         try {
             username = myScanner.nextLine();
@@ -106,6 +116,7 @@ public class Database {
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+
         }
 
         Boolean continueOperation = false;
@@ -132,6 +143,7 @@ public class Database {
                 System.out.println("Try to input the new username again: ");
             }
         }
+
         
         System.out.println();
         System.err.println("Enter the new username: ");
@@ -249,7 +261,7 @@ public class Database {
         }
         
         System.out.println();
-        System.out.println("Update client: "+username+ "Y/N");
+        System.out.println("Update client: "+username+" Y/N");
         try {
                     
         String choice = myScanner.nextLine();
@@ -260,20 +272,19 @@ public class Database {
             updateStatement.setString(4, updateClient.getPhone());
             updateStatement.setInt(5, updateClient.getAge());
 //           updateStatement.setString(6, username());
-            int results = updateStatement.executeUpdate();
 
+            int results = updateStatement.executeUpdate();
             if(results == 1){
-                System.out.println("1 row updated");
+                System.out.println("1 row updated!");
             }
         }else {
-            System.out.println("Update Canceled");
+            System.out.println("Update Canceled!");
         }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-
     }
-
+    
     public void deleteOperation(){
         System.out.println();
         try {
@@ -287,6 +298,58 @@ public class Database {
 
         } catch (SQLException e) {
             System.out.println("Delete Error!");
+        }       
+    }
+
+    public int totalOfClients(){  
+
+        int totalOfClients = 0;
+        try {
+            ResultSet countResult = countStatement.executeQuery();
+
+            if(countResult.next());
+                totalOfClients = countResult.getInt(1);
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }   
+        return totalOfClients;
+    }  
+    
+    public static int totalOfPages(int totalOfClients){
+        int numberOfPages = 0;
+        if(totalOfClients % 5 == 0){
+            numberOfPages = (totalOfClients/5);
+        }else{
+            numberOfPages = (totalOfClients/5);
+        }
+        return numberOfPages;
+    }
+    
+    public void searchOperation(){
+        try {
+            System.out.println("Type your search: ");
+            String searchValue = myScanner.nextLine();
+            searchByNameStatement.setString(1, "%"+searchValue+"%");
+            ResultSet searchResults = searchByNameStatement.executeQuery();
+            printTableRows(searchResults);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }    
+    }
+
+    public static void printTableRows(ResultSet table) throws SQLException{
+        
+            while(table.next()){
+               // System.out.println(tableResultSet.getString(1));
+                Client oneClient = new Client(
+                    table.getString(1).trim(),
+                    table.getString(2).trim(),
+                    table.getString(3).trim(),
+                    table.getString(4).trim(),
+                    table.getInt   (5));
+
+                System.out.println(oneClient.toString());
+        }
     }
 }
