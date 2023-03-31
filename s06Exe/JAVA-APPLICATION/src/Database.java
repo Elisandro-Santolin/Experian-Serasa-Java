@@ -90,12 +90,11 @@ public class Database {
 
         }
 
-      
     public void updateOperation(){
         System.out.println("Enter the username of the client to be updated: ");
         Client updateClient = null;
         String username = null;
-       
+
         // ## verifica se já existe o nome ## //
         try {
             username = myScanner.nextLine();
