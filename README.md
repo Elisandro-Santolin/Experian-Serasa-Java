@@ -10,7 +10,7 @@
 
 ## Installation
 
-- Execution requires Java v17+ to run.
+- Execution requires Java v17+ and PostgreSQL v15+ to run.
 
 
 ## License
