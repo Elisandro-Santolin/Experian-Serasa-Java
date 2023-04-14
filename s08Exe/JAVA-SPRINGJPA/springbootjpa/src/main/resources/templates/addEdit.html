@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Add Edit</title>
+    </head>
+    <body>
+        <div>
+            <a href="#" th:href="@{/}">Index</a>
+            <a th:href="@{/products}">Products List</a>
+            <a th:href="@{/products/add}">Create Product</a>
+        </div>
+    
+        <div>
+            <h2>Add or Edit a Product</h2>
+            <form th:object="${product}" th:action="@{/products/save}" method="post">
+                <input type="hidden" th:field="*{id}" />
+                <label>Name:</label> <input type="text" th:field="*{name}" />
+                <label>Color:</label> <input type="text" th:field="*{color}" />
+                <label>Price:</label> <input type="text" th:field="*{price}" />
+    
+                <button type="submit">Save</button>
+            </form>
+        </div>
+    </body>
+</html>
