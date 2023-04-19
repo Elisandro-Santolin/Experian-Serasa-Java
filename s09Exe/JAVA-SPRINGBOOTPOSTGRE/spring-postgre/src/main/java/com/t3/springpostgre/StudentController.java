@@ -1,10 +1,16 @@
 package com.t3.springpostgre;
 
+import java.util.Arrays;
+import java.util.List;
+
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller // ## indica que a classe é um controller ## //
@@ -26,6 +32,7 @@ public class StudentController {
     
         @GetMapping("/students/add") // ## AQUI MAPEAMOS a URL "/" para o templante addEdit.html ## //
         public String createStudent(Model model){
+            model.addAttribute("subtitle", "Adding a new Student");
             model.addAttribute("student", new Student());
             return "addEdit";
         }
@@ -37,16 +44,30 @@ public class StudentController {
         }
 
         @GetMapping("/students")
-        public String getAllStudents(Model model){
-            model.addAttribute("students", repository.findAll());
+        public String getAllStudents(Model model, @RequestParam(value = "sort", defaultValue = "ra") String sort){
+            model.addAttribute("students", repository.findAll(Sort.by(sort)));
             return "/studentList";
         }
 
         @GetMapping("/students/edit/{ra}")
         public String editStudent(Model model, @PathVariable(value = "ra")long ra){
             // ## findById procura um objeto pela sua chave primaria ## // 
-            model.addAttribute("student", repository.findAllById(null));
-
+            model.addAttribute("subtitle", "Edit a Student");
+            model.addAttribute("students", repository.findById(ra));
             return "addEdit";
         }
+
+        // ## mapeamos a URL "/students/delete/{ra}" onde se captura o valor de {ra} atraves da anotação @PathVariable ## //
+        @GetMapping("/students/delete/{ra}")
+        public String deleteStudent(@PathVariable(value = "ra") long ra){ 
+            repository.deleteById(ra);
+            return "redirect:/students";
+        }
+
+        // ## passa um valor para todos os models que tenha o atributo descrito ## // 
+        @ModelAttribute("periodOption")
+        public List<Period> selectOptionsPeriod(){ // ## isso aqui é um método ## //
+            return Arrays.asList(Period.values());
+
+        }   
 }
