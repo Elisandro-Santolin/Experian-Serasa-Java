@@ -5,16 +5,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
 @Entity // Define a classe como uma entidade
-@Table(name="characters")
-@Getter @Setter @NoArgsConstructor // modo preguiça ## lombok ## gera para você todo os construtor //
+@Table(name = "pets")
+@Getter @Setter @NoArgsConstructor // Modo Preguiça
 public class Pet {
 
     @Id
     @GeneratedValue
     @Column(name = "id")
-    private Long id;  // ## primary key ## //
+    private Long id;
 
     @Column(name = "name")
     private String name;
@@ -23,9 +22,9 @@ public class Pet {
     private String race;
 
     @Column(name = "color")
-    private int color;
+    private String color;
 
     @Column(name = "pet_level")
-    private int petLevel;
+    private String petLevel;
     
 }

@@ -15,32 +15,32 @@ import com.t3.springonetoone.repository.PetRepository;
 
 @Controller
 public class MainController {
-    
+
     @Autowired
     private PersonRepository personRepo;
 
     @Autowired
     private PetRepository petRepo;
-    
+
     @GetMapping("/")
-    public String index(){
+    public String index() {
         return "index";
     }
 
     @GetMapping("/persons/new")
-    public String createPerson(Model model){
-        Person person = new Person(); // cria a pessoa 
-        Pet pet = new Pet(); // cria um pet
-        person.setPetId(pet); // inclue o pet a pessoa
-        
+    public String createPerson(Model model) {
+        Person person = new Person(); //Cria uma pessoa
+        Pet pet = new Pet(); //Cria um pet
+        person.setPetId(pet); //Vincula o pet a pessoa
+
         model.addAttribute("person", person);
         return "addEditPerson";
     }
-   
+
     @PostMapping("/persons/save")
     public String savePerson(Person person){
-        personRepo.save(person); // ## Cascade.ALL salva ambas entidades
-        return "redirect:/persons"; 
+        personRepo.saveAll(person); // Cascade.ALL salva ambas entidades
+        return "redirect:/persons";
     }
 
     @GetMapping("/persons")
@@ -55,6 +55,6 @@ public class MainController {
         List<Pet> pets = petRepo.findAll();
         model.addAttribute("pets", pets);
         return "PetList";
-
     }
+
 }

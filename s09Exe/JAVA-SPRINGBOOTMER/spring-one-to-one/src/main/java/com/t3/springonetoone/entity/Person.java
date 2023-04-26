@@ -5,30 +5,27 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
 @Entity // Define a classe como uma entidade
 @Table(name="persons")
-@Getter @Setter @NoArgsConstructor // modo preguiça ## lombok ## gera para você todo os construtor //
+@Getter @Setter @NoArgsConstructor // Modo Preguiça
 public class Person {
 
     @Id
     @GeneratedValue
     @Column(name = "id")
-    private Long id;  // ## primary key ## //
+    private Long id;
 
     @Column(name = "name")
     private String name;
 
-    @Column(name = "chacacter_level")
+    @Column(name = "character_level")
     private int characterLevel;
 
-    @Column(name = "chacacter_class")
-    private int characterClass;
+    @Column(name = "character_class")
+    private String characterClass;
 
-    
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "pet_id", referencedColumnName = "id")
     private Pet petId;
-
+    
 }
-
