@@ -19,7 +19,7 @@ public class Product {
     private int quantity;
 
      // lado dono
-    @ManyToOne (fetch = FetchType.EAGER)
+    @ManyToOne (fetch = FetchType.LAZY) //LAZY EAGER ESPECIE DE ENUM
     @JoinColumn(name = "cart_id") 
     private Cart myCart;
 
