@@ -21,8 +21,19 @@ public class DataLoader implements CommandLineRunner{
     @Override
     public void run(String... args) throws Exception {
         System.out.println("Inicio da execução");
-        createNewStudent("João", "Pneu");
+
+        System.out.println("createNewStudent('Joao', 'Pneu')");
+        createNewStudent("Joao", "Pneu");
+
+        System.out.println("fetchStudent(1L)");
         featchStudent(1L);
+
+        System.out.println("fetchSGroup1L)");
+        fetchGroup(1L);
+
+        System.out.println("fetchSGroup2L)");
+        fetchGroup(2L);
+
         System.out.println("Fim da execução");       
     }
 
@@ -37,6 +48,11 @@ public class DataLoader implements CommandLineRunner{
         Group group2 = new Group();
         group2.setName("Teatro");
 
+        //Adiciono o estudante nos grupos
+        group1.getStudents().add(student);
+        group2	.getStudents().add(student);
+
+        //Adiciono os grupos no estudante
         student.getGroups().add(group1);
         student.getGroups().add(group2);
 
@@ -54,6 +70,14 @@ public class DataLoader implements CommandLineRunner{
         student.getGroups().forEach((group) -> {
             System.out.println(group.getName());
         });
+    }
 
+    public void fetchGroup(long id){
+        Group group = groupRepository.findById(id).get();
+        System.out.println(group.getName());
+
+        group.getStudents().forEach((student) -> {
+            System.out.println(student.toString());
+        });
     }
 }
