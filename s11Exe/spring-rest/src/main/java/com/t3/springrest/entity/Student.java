@@ -1,6 +1,11 @@
 package com.t3.springrest.entity;
 
 import lombok.*;
+
+import java.util.Date;
+
+import org.hibernate.annotations.CreationTimestamp;
+
 import jakarta.persistence.*;
 
 
@@ -17,12 +22,15 @@ public class Student {
     private String fullName;
     private String email;
     private String cpf;
+    private Boolean admin;
+
+    @Column(name = "date_create")
+    @CreationTimestamp
+    private Date dateCreate;
     
     public Student(String fullName, String email, String cpf) {
         this.fullName = fullName;
         this.email = email;
         this.cpf = cpf;
     }
-
-
 }
