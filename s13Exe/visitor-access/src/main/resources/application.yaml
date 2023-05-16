@@ -1,0 +1,15 @@
+# spring.datasource.url= jdbc:postgresql://localhost:5432/visitor_api
+# spring.datasource.username=postgres
+# spring.datasource.password=Admin@@2023
+# spring.datasource.driver-class-name=org.postgresql.Driver
+# spring.jpa.hibernate.ddl-auto=update
+
+spring: 
+    datasource: 
+        url: jdbc:postgresql://localhost:5432/visitor_api
+        username: postgres
+        password: Admin@@2023
+        driver-class-name: org.postgresql.driver
+    jpa:
+        hibernate:
+            ddl-auto: update
