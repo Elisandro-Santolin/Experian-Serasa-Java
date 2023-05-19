@@ -1,15 +1,17 @@
 # spring.datasource.url= jdbc:postgresql://localhost:5432/visitor_api
 # spring.datasource.username=postgres
-# spring.datasource.password=Admin@@2023
+# spring.datasource.password=jaqueta
 # spring.datasource.driver-class-name=org.postgresql.Driver
 # spring.jpa.hibernate.ddl-auto=update
 
-spring: 
-    datasource: 
+# É necessário respeitar a hierarquia através da indentação
+
+spring:
+    datasource:
         url: jdbc:postgresql://localhost:5432/visitor_api
         username: postgres
         password: Admin@@2023
-        driver-class-name: org.postgresql.driver
+        driver-class-name: org.postgresql.Driver
     jpa:
         hibernate:
             ddl-auto: update

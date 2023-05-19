@@ -1,8 +1,9 @@
 package com.t3.visitoraccess.entity;
 
-import java.sql.Date;
+import java.util.Date;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -18,7 +19,7 @@ import lombok.Setter;
 @Table(name = "visitor")
 @Getter @Setter @NoArgsConstructor
 public class Visitor {
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -34,9 +35,11 @@ public class Visitor {
     private String block;
 
     @Column(name = "entry_date")
-    private Date entryDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date entryTime;
 
     @Column(name = "date_created")
-    @CreationTimestamp //salva o horário da criação
+    @CreationTimestamp //salva o horario da criação
     private Date dateCreated;
+
 }

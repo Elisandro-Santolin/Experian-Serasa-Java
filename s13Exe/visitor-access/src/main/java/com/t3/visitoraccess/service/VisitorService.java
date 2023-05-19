@@ -10,7 +10,7 @@ import com.t3.visitoraccess.repository.VisitorRepository;
 
 @Service
 public class VisitorService {
-    
+
     @Autowired
     private VisitorRepository visitorRepository;
 
@@ -22,4 +22,6 @@ public class VisitorService {
         List<Visitor> allVisitors = visitorRepository.findAll();
         return allVisitors;
     }
+
+    
 }
