@@ -4,13 +4,13 @@
 # spring.datasource.driver-class-name=org.postgresql.Driver
 # spring.jpa.hibernate.ddl-auto=update
 
-# É necessário respeitar a hierarquia através da indentação
+# É necessario respeitar a hierarquia atraves da indentação
 
 spring:
     datasource:
         url: jdbc:postgresql://localhost:5432/visitor_api
         username: postgres
-        password: Admin@@2023
+        password: jaqueta
         driver-class-name: org.postgresql.Driver
     jpa:
         hibernate:
