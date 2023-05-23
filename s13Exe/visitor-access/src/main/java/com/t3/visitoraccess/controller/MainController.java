@@ -52,8 +52,8 @@ public class MainController {
     }
 
     @PostMapping("/visitor/save")
-    public String saveVisitor(Visitor visitor) {
-        visitorService.newVisit(visitor);
+    public String saveVisitor(Visitor visitor, @AuthenticationPrincipal SecurityUser user) {
+        userService.addVisitor(user.getUsername(), visitor);
         return "redirect:/";
     }
     

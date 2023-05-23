@@ -10,7 +10,7 @@ spring:
     datasource:
         url: jdbc:postgresql://localhost:5432/visitor_api
         username: postgres
-        password: jaqueta
+        password: Admin@@2023
         driver-class-name: org.postgresql.Driver
     jpa:
         hibernate:
