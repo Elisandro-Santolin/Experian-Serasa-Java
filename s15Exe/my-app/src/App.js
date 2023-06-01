@@ -1,38 +1,43 @@
+import { useState } from 'react';
 import './App.css';
-import MyButton, {ButtonCounter} from './MyBottom';
+import MyButton, {ButtonCounter, SharedCounter} from './MyButton';
+import Moldura from './Moldura';
 
 function App() {
 
   let name = "Flávinho do Pneu";
-  const myBoolean = true;
 
-  const compras = ["Repolho", "Tomate", "Melão", "Mamão"];
+  const [counter, setCounter] = useState(0);
 
-  const listaCompras = compras.map(item => 
-    <li key={item}>
-      {item}
-    </li>
-  );
-
-  if(myBoolean){
-    name = "Jhon";
-  } else{
-    name = "Fred";
+  function handleCounter(){
+    setCounter(counter + 1);
   }
 
   return (
     <>
       <p className="teste">{name}</p>
-      <MyButton name = {name}/>
-      <MyButton name = {"Ninguem"}/>
+
+      <MyButton name={true}/>
+      <MyButton />
+
       <br/>
+      <p>Contadores Individuais</p>
+
+      <ButtonCounter/>
       <ButtonCounter/>
 
-      {myBoolean ? (<h1>Verdadeiro</h1>) : (<h1>Falso</h1>)}
+      <br/>
+      <p>Contadores Compartilhados</p>
 
-      <ul>
-        {listaCompras}
-      </ul>
+      <SharedCounter count={counter} handleCounterProps={handleCounter}/>
+      <SharedCounter count={counter} handleCounterProps={handleCounter}/>
+      <SharedCounter count={counter} handleCounterProps={handleCounter}/>
+      <SharedCounter count={counter} handleCounterProps={handleCounter}/>
+
+
+      <Moldura>
+        <h2>Dentro da Moldura</h2>
+      </Moldura>
     </>
   );
 }

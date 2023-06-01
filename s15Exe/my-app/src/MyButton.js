@@ -21,3 +21,10 @@ export default function MyButton({name}) {
         <button onClick={handleCounter}>Contator: {count}</button>
       );
 }
+
+export function SharedCounter({count, handleCounterProps}){
+
+  return(
+    <button onClick={handleCounterProps}>Contador: {count}</button>
+  );
+}

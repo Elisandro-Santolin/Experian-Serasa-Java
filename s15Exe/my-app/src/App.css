@@ -39,3 +39,9 @@
 .teste{
   color: tomato;
 }
+.moldura {
+  border-radius: 20px;
+  border-color: black;
+  border-style: double;
+  border-width: 3px;
+}
