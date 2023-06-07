@@ -26,5 +26,8 @@ public class TaskService {
     public List<Task> findAllTasks(){
             return taskRepository.findAll();
     }
-        
+ 
+    public Task createTask(Task task){
+        return taskRepository.save(task);
+    }
 }

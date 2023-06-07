@@ -1,11 +1,12 @@
 import './App.css';
-import TaskList from './components/TaskList';
+import CreateTask from './components/CreateTask';
 
 export default function App() {
   return (
     <div>
       <h1>Tasks</h1>
-      <TaskList />
+      {/* <TaskList /> */}
+      <CreateTask/>
     </div>
   );
 }
