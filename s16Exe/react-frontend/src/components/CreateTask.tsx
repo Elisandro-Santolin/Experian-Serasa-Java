@@ -1,17 +1,17 @@
-import Task from "../interfaces/Task";
 import { useState } from "react";
+import Task from "../interfaces/Task";
 import TaskServiceFront from "../services/TaskServiceFront";
-
+import { useNavigate } from "react-router-dom";
 
 export default function CreateTask() {
-      
+
     const [task, setTask] = useState<Task>({
         id: undefined,
         name: "",
         description: "",
-        creationDate: null,
-        updateDate: null,
-        deadlineDate: null,
+        creationDate: "",
+        updateDate: "",
+        deadlineDate: "",
         done: false,
     });
 
@@ -19,20 +19,24 @@ export default function CreateTask() {
         setTask({...task, [e.target.name]: e.target.value})
     };
 
+    const navigate = useNavigate();
+
     const saveTask = (e : any) => {
         e.preventDefault();
         TaskServiceFront.saveTask(task)
             .then((response) => {
                 console.log(response);
+                navigate("/")
             })
             .catch((error) => {
-                console.log(error);
+                console.error(error);
             });
     };
 
     return(
         <>
             <h1>Create Task</h1>
+
             <div>
                 <label>Name: </label>
                 <input 
@@ -43,24 +47,27 @@ export default function CreateTask() {
                     onChange={(e) => handleChange(e)}
                 />
             </div>
+
             <div>
                 <label>Description: </label>
                 <textarea 
                     name="description"
                     placeholder="description..."
                     value={task.description}
-                    onChange={(e) =>  handleChange(e)}
+                    onChange={(e) => handleChange(e)}
                 />
             </div>
+
             <div>
                 <label>Deadline: </label>
                 <input
                     type="datetime-local"
                     name="deadlineDate"
                     value={task.deadlineDate}
-                    onChange={(e) =>  handleChange(e)}
+                    onChange={(e) => handleChange(e)}
                 />
             </div>
+
             <div>
                 <button onClick={saveTask}>Add</button>
             </div>
