@@ -6,6 +6,7 @@ export default function TaskHeader(){
             <h1>Task Manager</h1>
             <nav>
                 <Link to={"/"}>All Tasks</Link>
+                {" | "}
                 <Link to={"/new"}>New Task</Link>
             </nav>
         </header>

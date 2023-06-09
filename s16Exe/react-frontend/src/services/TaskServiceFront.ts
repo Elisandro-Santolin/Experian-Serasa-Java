@@ -15,9 +15,21 @@ class TaskServiceFront {
         return axios.get(TASK_API_BASE_URL);
     };
 
-    getTaskById(id : string) {
+    // Faz uma requisição GET retornando uma task por id
+    getTaskById(id : string | number) {
         return axios.get(TASK_API_BASE_URL + "/" + id);
+    }
+
+    // Faz uma requisição DELETE removendo uma task por id
+    deleteTaskById(id : string | number) {
+        return axios.delete(TASK_API_BASE_URL + "/" + id);
+    }
+
+    // Faz uma requisição PUT atualizando uma task por id
+    updateTaskById(id : string | number, task: Task){
+        return axios.put(TASK_API_BASE_URL + "/" + id, task);
     }
 }
 
-export default new TaskServiceFront();
+const taskServiceFront = new TaskServiceFront();
+export default taskServiceFront;
