@@ -59,7 +59,9 @@ export default function UpdateTask(){
         const fetchTask = async () => {
             try {
                 const response = await TaskServiceFront.getTaskById(id!);
-                setTask(response.data);
+                
+                const newDate = new Date(response.data.deadlineDate);
+                setTask({...response.data, deadlineDate: newDate.toISOString().slice(0,-5)});
             } catch (error) {
                 console.error(error);
             }
